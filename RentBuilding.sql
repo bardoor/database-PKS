@@ -1,0 +1,6 @@
+CREATE TABLE RentBuilding (
+id INT PRIMARY KEY,
+value INT UNSIGNED, 
+FOREIGN KEY(ID)
+REFERENCES BookStore(id)
+);
