@@ -1,0 +1,126 @@
+задание №1
+
+решение:
+CREATE TABLE `MusicTraksKirill` (
+	`id` INT(12),
+	`name` VARCHAR(250),
+	`date` DATE, 
+	`info` TEXT,
+	`time_track` FLOAT,
+	`author` VARCHAR(100)
+);
+(таблица)
+
+INSERT INTO `MusicTraksKirill` (`name`, `date`, `info`, `time_track`, `author`)
+VALUES
+("Xtal", "1992-11-09", "песня Aphex Twin", "4.54", "Aphex Twin"),
+("Phloam", "1995-01-30", "песня Aphex Twin", "2.21", "Aphex Twin"),
+("Tha", "1992-11-09", "песня Aphex Twin", "4.54", "Aphex Twin"),
+("Isoprophlex", "1995-01-30", "песня Aphex Twin", "2.21", "Aphex Twin"),
+("Tamphex", "1995-01-30", "песня Aphex Twin", "2.21", "Aphex Twin"),
+("Metapharstic", "1995-01-30", "песня Aphex Twin", "2.21", "Aphex Twin"),
+("Actium", "1992-11-09", "песня Aphex Twin", "4.54", "Aphex Twin"),
+("Digeridoo ", "1995-01-30", "песня Aphex Twin", "2.21", "Aphex Twin"),
+("I", "1992-11-09", "песня Aphex Twin", "4.54", "Aphex Twin"),
+("Ptolemy", "1995-01-30", "песня Aphex Twin", "2.21", "Aphex Twin");
+
+(10 музыкальных треков)
+
+задание №2
+
+решение:
+таблица:
+CREATE TABLE `CountriesKirill` (
+	`id` INT(11),
+	`square` INT(11) ,
+	`date_of_foundation` DATE,
+	`population` INT(11),
+	`name` VARCHAR(50)
+	
+);
+
+
+код задания:
+INSERT INTO `CountriesKirill`(`square`, `date_of_foundation`, `population`, `name`)
+VALUE
+("17098246", "892-02-11","1620564","Россия"),
+("11098246", "1292-01-11","164566620564","Америка"),
+("2098246", "1989-09-11","66620564","Беларусь"),
+("2398246", "1342-07-11","645620564","Турция"),
+("333246", "1083-01-11","5620564","Англия"),
+("17043246", "1119-11-11","76620564","Польша"),
+("3098246", "1731-10-11","7620564","Румыния"),
+("1098246", "1895-08-11","436620564","Казахстан"),
+("1198246", "1435-12-11","45620564","ОАЭ"),
+("1309246", "1293-11-11","26620564","Египет"),
+("2303034", "1459-04-11","14423444","Италия");
+
+
+задание №3 
+код таблицы:
+CREATE TABLE `DonkeysKirill`(
+	`id` INT(11) AUTO_INCREMENT, 
+	`name` VARCHAR(50), 
+	`date_of_birth` DATE, 
+	`info` TEXT,
+	`age` INT(11),
+	PRIMARY KEY(`id`)
+	
+);	
+
+
+код решение задачи:
+INSERT INTO `DonkeysKirill`(`name`, `date_of_birth`, `info`, `age`)
+VALUE 
+("Bella", "2014-08-09","born in Russia", "10"),
+("Rembo", "1998-08-09","born in England", "26"),
+("Ariel", "2000-08-09","born in Kazakhstan", "24"),
+("Kukki", "2023-08-09","born in Canada", "1"),
+("Marusia", "2018-08-09","born in Japan", "6"),
+("Zidan", "2017-08-09","born in Belarus", "7"),
+("Hexs", "2012-08-09","born in Africa", "12"),
+("Frenk", "2015-08-09","born in USA", "9"),
+("Lussy", "2022-08-09","born in Britannia", "2"),
+("Avrora", "1900-08-09","born in Germany", "124");
+
+задача №4
+код таблицы:
+CREATE TABLE `OurBeautifulGroupKirill`(
+	`id` INT(11) AUTO_INCREMENT,
+	`name` VARCHAR(50),
+	`age` INT(11),
+	`hobbies` VARCHAR(50),
+	`favorite_python_design` TEXT,
+	PRIMARY KEY(`id`)
+);
+
+код решения задачи:
+INSERT INTO `OurBeautifulGroupKirill`(`name`, `age`, `hobbies`, `favorite_python_design`)
+VALUE 
+("Кирилл", "15", "Программирование , спортзал" , "while, if/else"),
+("Мухаммад", "15", "Программирвание", "if/else"),
+("Богдан", "16", "Программирование", "while");
+
+ПОЛУЧЕНИЕ ДАННЫХ 
+
+задание №1
+SELECT AVG(`age`)
+FROM OurBeautifulGroupKirill; (средний возраст)
+
+SELECT MIN(`age`)
+FROM OurBeautifulGroupKirill; (минимальный возвраст)
+
+SELECT MAX(`age`)
+FROM OurBeautifulGroupKirill; (максимальный возвраст)
+
+
+задание №2
+
+SELECT MIN(`square`), MAX(`square`)
+FROM CountriesKirill;
+
+
+задание №3
+SELECT MIN(`name`), MAX(`name`)
+FROM MusicTraksKirill;
+
