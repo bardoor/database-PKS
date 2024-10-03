@@ -1,0 +1,56 @@
+INSERT INTO EmployeeBogdan
+VALUES(1,"Вася Пупкин Саныч", 15000),
+(2,"Компилятор Дрейнер Клавиатурович", 40000),
+(3,"Durov Павел Телеграммович", 300000),
+(4,"Vozduhанов Василий Павлович", 250000),
+(5,"Doma Дори Валийевич", 112939)
+
+CREATE TABLE EmployeeBogdan(
+`id` INT AUTO_INCREMENT PRIMARY KEY,
+`name` VARCHAR(50),
+`salary` INT
+);
+
+ALTER TABLE EmployeeBogdan
+MODIFY COLUMN salary DECIMAL(11,2)
+
+///
+CREATE TABLE SkufsBogdan(
+`id` INT AUTO_INCREMENT PRIMARY KEY,
+`name` VARCHAR(50),
+`age` INT
+);
+
+INSERT INTO SkufsBogdan
+VALUES(1, "Дмитрий-1", 22),
+(2,"Дмитрий-2", 22),
+(3,"Вася", 40),
+(4,"Андрей", 15),
+(5,"Саша", 59)
+
+ALTER TABLE SkufsBogdan 
+MODIFY COLUMN job VARCHAR(150) UNIQUE NOT NULL;
+
+ALTER TABLE SkufsBogdan
+ADD job VARCHAR(50)
+\\\
+
+CREATE TABLE SkufJobsBogdan(
+`skuf_id` INT AUTO_INCREMENT PRIMARY KEY,
+`name` VARCHAR(50)
+);
+
+ALTER TABLE SkufsBogdan
+ADD CONSTRAINT fk_id_sc
+FOREIGN KEY (id_sc)
+REFERENCES SkufJobsBogdan (skuf_id);
+
+INSERT INTO SkufJobsBogdan
+VALUES(1, "Программист"),
+(2,"Сварщик"),
+(3,"Преподаватель"),
+(4,"Начальник"),
+(5,"Депутат")
+
+ALTER TABLE SkufJobsBogdan
+ADD scuf_id INT
