@@ -1,0 +1,28 @@
+import mysql.connector
+
+connection = mysql.connector.connect(
+    host="109.206.169.221",
+    user="seschool_01",
+    password="seschool_01",
+    database="seschool_01"
+)
+
+cursor = connection.cursor()
+
+users = [
+("Васильева Александра Максимовна",),
+("Анисимов Макар Маркович",),
+("Белова Амина Яковлевна",),
+("Белякова София Максимовна",),
+("Платонов Герман Иванович",),
+("Широков Михаил Романович",),
+("Журавлев Роман Дмитриевич",),
+("Антонова София Павловна",),
+("Голикова София Богданов",),
+("Коновалова Алиса Денисо",)]
+
+query = 'INSERT INTO Authorss (FIO) VALUES(%s);'
+cursor.executemany(query,users)
+
+connection.commit()
+connection.close()
