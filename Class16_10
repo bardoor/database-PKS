@@ -1,0 +1,90 @@
+import mysql.connector
+
+
+class DateBase:
+    __cursor = None
+    __connection = None
+
+    @classmethod
+    def connect(cls, host, user, password, database):
+        cls.__connection = mysql.connector.connect(
+            user=user, password=password,
+            host=host, database=database
+        )
+        cls.__cursor = cls.__connection.cursor()
+
+    @classmethod
+    def cursor(cls):
+        return cls.__cursor
+
+
+class BookShop:
+    def get_by_id(id: int):
+        query = "SELECT * FROM BookShop WHERE id = %s;"
+        DateBase.cursor().exexute(query, (id,))
+        All_info = cursor.fetchall()
+        return All_info
+
+    def get_by_address(id_address: int):
+        query = f"SELECT id_address FROM Address;"
+        DateBase.cursor().exexute(query)
+        id_address = cursor.fetchall()
+        return id_address
+
+    def get_by_id_personal(id_personal: int):
+        query = f"SELECT id_personal FROM BookShop;"
+        DateBase.cursor().exexute(query)
+        id_personal = cursor.fetchall()
+        return id_personal
+
+
+class Address:
+    def get_by_id_address(id_address: int):
+        query = f"SELECT id_shop FROM Address;"
+        DateBase.cursor().exexute(query)
+        ids_shop = cursor.fetchall()
+        return id_address
+
+    def get_by_address(address: str):
+        query = f"SELECT id_address FROM Address;"
+        DateBase.cursor().exexute(query)
+        id_address = cursor.fetchall()
+        return address
+
+    def get_by_all(id_address: int, address: str):
+        query = f"SELECT * FROM Address;"
+        DateBase.cursor().exexute(query)
+        all = cursor.fetchall()
+        return all
+
+
+class Books:
+    ...
+
+class WareHouse:
+    ...
+
+
+class Authors:
+    ...
+
+class Post:
+    ...
+
+class Personal:
+    ...
+
+class Shop:
+    ...
+
+print("before")
+con = mysql.connector.connect(host="109.206.169.221",
+                user="seschool_01",
+                password="seschool_01",
+                database="seschool_01")
+#a = DateBase.connect()
+cur = con.cursor()
+cur.execute("SELECT * FROM Employee;")
+print(DateBase.cursor().fetchall())
+
+
