@@ -1,0 +1,90 @@
+import mysql.connector
+from abc import ABC
+
+
+class Table(ABC):
+    @staticmethod
+    def add(values: dict):
+        ...
+
+    @staticmethod
+    def get_fields_name():
+        ...
+
+
+class DateBase:
+    __cursor = None
+    __connection = None
+
+    @classmethod
+    def connect(cls, host, user, password, database):
+        cls.__connection = mysql.connector.connect(
+            user=user, password=password,
+            host=host, database=database
+        )
+        cls.__cursor = cls.__connection.cursor()
+
+    @classmethod
+    def cursor(cls):
+        return cls.__cursor
+
+
+class BookShop(Table):
+    def get_by_id(id: int):
+        query = "SELECT * FROM BookShop WHERE id = %s;"
+        DateBase.cursor().exexute(query, (id,))
+        All_info = DateBase.cursor().fetchall()
+        return All_info
+
+    def get_by_address(id_address: int):
+        query = "SELECT id_address FROM Address WHERE id_address = %s;"
+        DateBase.cursor().exexute(query, (id_address,))
+        id_address = DateBase.cursor().fetchall()
+        return id_address
+
+    def get_by_id_personal(id_personal: int):
+        query = "SELECT id_personal FROM BookShop WHERE id_personal = %s;"
+        DateBase.cursor().exexute(query, (id_personal,))
+        id_personal = DateBase.cursor().fetchall()
+        return id_personal
+    
+    def add(values: dict):
+        query = "SELECT `id` FROM Address WHERE `address` = %s AND `city` = %s;"
+
+        DateBase.cursor().execute(query, (values["address"], values["city"]))
+        id_address = DateBase.cursor().fetchone()
+
+        query = "SELECT `id` FROM Comands WHERE `address` = %s AND `city` = %s;"
+        DateBase.cursor().execute(query, (values["address"], values["city"]))
+        id_address = DateBase.cursor().fetchone()
+
+
+        q = "INSERT INTO BookShop (`id_address`) VALUES(%s)"
+        DateBase.cursor().execute(q, (id_address,))
+
+class Address(Table):
+    def get_by_id(id: int):
+        query = "SELECT * FROM Address WHERE id = %s;"
+        DateBase.cursor().exexute(query, (id,))
+        all_info = DateBase.cursor().fetchall()
+        return all_info
+
+    def get_by_address(address: str):
+        query = "SELECT address FROM Address WHERE address = `%s`;"
+        DateBase.cursor().exexute(query, (address, ))
+        address = DateBase.cursor().fetchall()
+        return address
+
+    def add_by_id(values):
+        ...
+
+
+
+a = DateBase.connect(host="109.206.169.221",
+                user="seschool_01",
+                password="seschool_01",
+                database="seschool_01")
+
+cur = con.cursor()
+cur.execute("SELECT * FROM Employee;")
+print(DateBase.cursor().fetchall())
