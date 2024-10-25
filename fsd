@@ -1,0 +1,231 @@
+import mysql.connector
+
+
+class DateBase:
+    __cursor = None
+    __connection = None
+
+    @classmethod
+    def connect(cls, host, user, password, database):
+        cls.__connection = mysql.connector.connect(
+            user=user, password=password,
+            host=host, database=database
+        )
+        cls.__cursor = cls.__connection.cursor()
+
+    @classmethod
+    def cursor(cls):
+        return cls.__cursor
+
+    @classmethod
+    def commit(cls):
+        cls.__connection.commit()
+
+
+
+class BookShop:
+    @staticmethod
+    def get_by_id(id: int):
+        query = "SELECT * FROM BookShop WHERE id = %s;"
+        DateBase.cursor().execute(query, (id,))
+        All_info = DateBase().cursor().fetchall()
+        return All_info
+
+    def get_by_address(id_address: int):
+        query = "SELECT * FROM Address WHERE id_address = %s;"
+        DateBase.cursor().execute(query, (id_address,))
+        id_address = DateBase().cursor().fetchall()
+        return id_address
+
+    def get_by_id_personal(id_personal: int):
+        query = "SELECT * FROM BookShop WHERE id_personal = %s;"
+        DateBase.cursor().execute(query, (id_personal,))
+        id_personal = DateBase().cursor().fetchall()
+        return id_personal
+
+    def add_by_id(id_address, id_personal):
+        query = "INSERT INTO BookShop(id_address, id_personal) VALUES(%s, %s);"
+        data = (id_address, id_personal)
+        DateBase.cursor().executemany(query, data)
+# Удаление строки, id,
+
+
+class Address:
+    @staticmethod
+    def get_by_id(id: int):
+        query = "SELECT * FROM Address WHERE id = %s;"
+        DateBase.cursor().execute(query, (id,))
+        all_info = DateBase().cursor().fetchall()
+        return all_info
+
+    def get_by_address(address: str):
+        query = "SELECT * FROM Address WHERE address = %s;"
+        DateBase.cursor().execute(query, (address, ))
+        address = DateBase().cursor().fetchall()
+        return address
+
+    def add_by_id(id_address, id_personal):
+        query = "INSERT INTO BookShop(id_address, id_personal) VALUES(%s, %s);"
+        data = (id_address, id_personal)
+        DateBase.cursor().executemany(query, data)
+
+
+
+class Books:
+    @staticmethod
+    def get_by_id(id: int):
+        query = "SELECT * FROM Books WHERE id = %s;"
+        DateBase.cursor().execute(query, (id,))
+        All_info = DateBase().cursor().fetchall()
+        return All_info
+
+    def get_by_price(price: int):
+        query = "SELECT * FROM Books WHERE price = %s;"
+        DateBase.cursor().execute(query, (price,))
+        price = DateBase().cursor().fetchall()
+        return price
+
+    def get_by_name(name: str):
+        query = "SELECT * FROM Books WHERE name = %s;"
+        DateBase.cursor().execute(query, (name,))
+        name = DateBase().cursor().fetchall()
+        return name
+
+    def add_by_id(id_address, id_personal):
+        query = "INSERT INTO BookShop(id_address, id_personal) VALUES(%s, %s);"
+        data = (id_address, id_personal)
+        DateBase.cursor().executemany(query, data)
+
+
+
+class WareHouse:
+    @staticmethod
+    def get_by_id(id: int):
+        query = "SELECT * FROM WareHouse WHERE id = %s;"
+        DateBase.cursor().execute(query, (id,))
+        all_info =DateBase().cursor().fetchall()
+        return all_info
+
+    def get_by_count(count: int):
+        query = "SELECT * FROM WareHouse WHERE count = %s;"
+        DateBase.cursor().execute(query, (count,))
+        count = DateBase().cursor().fetchall()
+        return count
+
+    def add_by_id(id_address, id_personal, name):
+        query = "INSERT INTO BookShop(id_address, id_personal, name) VALUES(%s, %s);"
+        data = (id_address, id_personal)
+        DateBase.cursor().executemany(query, data)
+
+
+
+class Authors:
+    @staticmethod
+    def get_by_id(id: int):
+        query = "SELECT * FROM Authors WHERE id = %s;"
+        DateBase.cursor().execute(query, (id,))
+        all_info = DateBase().cursor().fetchall()
+        return all_info
+
+    def get_by_FIO(FIO: str):
+        query = "SELECT * FROM Authors WHERE FIO = %s;"
+        DateBase.cursor().execute(query, (FIO,))
+        FIO = DateBase().cursor().fetchall()
+        return FIO
+
+    def add_by_id(id_address, id_personal):
+        query = "INSERT INTO BookShop(id_address, id_personal) VALUES(%s, %s);"
+        data = (id_address, id_personal)
+        DateBase.cursor().executemany(query, data)
+
+class Post:
+    @staticmethod
+    def get_by_id(id: int):
+        query = "SELECT * FROM Post WHERE id = %s;"
+        DateBase.cursor().execute(query, (id,))
+        all_info = DateBase().cursor().fetchall()
+        return all_info
+
+    def get_by_post(post: str):
+        query = "SELECT * FROM Post WHERE post = %s;"
+        DateBase.cursor().execute(query, (post,))
+        post = DateBase().cursor().fetchall()
+        return post
+
+    def add_by_id(id_address, id_personal):
+        query = "INSERT INTO BookShop(id_address, id_personal) VALUES(%s, %s);"
+        data = (id_address, id_personal)
+        DateBase.cursor().executemany(query, data)
+
+class Personal:
+    @staticmethod
+    def get_by_id(id: int):
+        query = "SELECT * FROM Personal WHERE id = %s;"
+        DateBase.cursor().execute(query, (id,))
+        All_info = DateBase().cursor().fetchall()
+        return All_info
+
+    def get_by_FIO(FIO: str):
+        query = "SELECT * FROM Personal WHERE FIO = %s;"
+        DateBase.cursor().execute(query, (FIO,))
+        FIO = DateBase().cursor().fetchall()
+        return FIO
+
+    def get_by_id_post(id_post: int):
+        query = "SELECT * FROM Personal WHERE id_post = %s;"
+        DateBase.cursor().execute(query, (id_post,))
+        id_post = DateBase().cursor().fetchall()
+        return id_post
+
+    def add_by_id(id_address, id_personal):
+        query = "INSERT INTO BookShop(id_address, id_personal) VALUES(%s, %s);"
+        data = (id_address, id_personal)
+        DateBase.cursor().executemany(query, data)
+
+
+class Provider:
+    @staticmethod
+    def get_by_id(id: int):
+        query = "SELECT * FROM Provider WHERE id_provider = %s;"
+        DateBase.cursor().execute(query, (id,))
+        All_info = DateBase().cursor().fetchall()
+        return All_info
+
+
+    def get_by_books(id_books: int):
+        query = "SELECT * FROM Provider WHERE id_books = %s;"
+        DateBase.cursor().execute(query, (id_books,))
+        id_books = DateBase().cursor().fetchall()
+        return id_books
+
+    def get_by_price(price: int):
+        query = "SELECT * FROM Provider WHERE price = %s;"
+        DateBase.cursor().execute(query, (price,))
+        price = DateBase().cursor().fetchall()
+        return price
+
+    def get_by_name(name: str):
+        query = "SELECT * FROM Provider WHERE name = %s;"
+        DateBase.cursor().execute(query, (name,))
+        name = DateBase().cursor().fetchall()
+        return name
+
+    def add_by_id(id_address, id_personal):
+        query = "INSERT INTO BookShop(id_address, id_personal) VALUES(%s, %s);"
+        data = (id_address, id_personal)
+        DateBase.cursor().executemany(query, data)
+
+class Programs:
+
+    @classmethod
+    def __option_chose(cls):
+        choice
+
+
+DateBase.connect(host="109.206.169.221",
+                user="seschool_01",
+                password="seschool_01",
+                database="seschool_01")
+
+cur = DateBase.cursor()
+print(Provider.get_by_name("date"))
