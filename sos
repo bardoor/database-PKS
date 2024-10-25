@@ -1,0 +1,176 @@
+import mysql.connector
+from abc import ABC
+
+
+class Table(ABC):
+    @staticmethod
+    def add(values: dict):
+        ...
+
+    @staticmethod
+    def find(values: dict):
+        ...
+    @staticmethod
+    def get_fields_name():
+        ...
+
+
+class DateBase:
+    __cursor = None
+    __connection = None
+
+    @classmethod
+    def connect(cls, host, user, password, database):
+        cls.__connection = mysql.connector.connect(
+            user=user, password=password,
+            host=host, database=database
+        )
+        cls.__cursor = cls.__connection.cursor()
+
+    @classmethod
+    def cursor(cls):
+        return cls.__cursor
+
+    
+    @classmethod
+    def commit(cls):
+        cls.__connection.commit()
+
+
+class BooksTable(Table):
+    @staticmethod
+    def get_by_id(values: dict):
+        id = values["id"]
+        query = "SELECT * FROM Books WHERE id = %s;"
+        DateBase.cursor().execute(query, (id,))
+        All_info = DateBase().cursor().fetchall()
+        return All_info
+
+    def get_by_price(values: dict):
+        price = values["price"]
+        query = "SELECT * FROM Books WHERE price = %s;"
+        DateBase.cursor().execute(query, (price,))
+        price = DateBase().cursor().fetchall()
+        return price
+
+    def get_by_name(name: str):
+        query = "SELECT * FROM Books WHERE name = %s;"
+        DateBase.cursor().execute(query, (name,))
+        name = DateBase().cursor().fetchall()
+        return name
+
+    def add(values: dict):
+        price, name = values["price"], values["name"]
+        query = "INSERT INTO Books (price, name) VALUES(%s, %s);"
+        DateBase.cursor().execute(query, (price, name))
+
+    def get_fields_name():
+        return ["price", "name"]
+    
+    def find(values: dict):
+        name = values["name"]
+        query = "SELECT * FROM Books WHERE name = %s;"
+        DateBase.cursor().execute(query, (name,))
+        all_name = DateBase().cursor().fetchall()
+        return all_name
+
+
+class AddressTable(Table):
+    def get_by_id(id: int):
+        query = "SELECT * FROM Address WHERE id = %s;"
+        DateBase.cursor().exexute(query, (id,))
+        all_info = DateBase.cursor().fetchall()
+        return all_info
+
+    def get_by_address(address: str):
+        query = "SELECT address FROM Address WHERE address = `%s`;"
+        DateBase.cursor().exexute(query, (address, ))
+        address = DateBase.cursor().fetchall()
+        return address
+
+    def add(values: dict):
+        address, city = values["address"], values["city"]
+        query = "INSERT INTO Address (address, city) VALUES(%s, %s);"
+        DateBase.cursor().execute(query, (address, city))
+
+    def get_fields_name():
+        return ["address", "city"]
+
+
+
+class Program:
+    __is_finished: bool = False
+    __current_table: Table
+
+    @classmethod
+    def __handle_table_choice(cls):
+        print("1: Работать с таблицей Books")
+        print("2: Работать с таблицей Address")
+
+        choice = int(input(">> "))
+        if choice == 1:
+            cls.__current_table = BooksTable
+        elif choice == 2:
+            cls.__current_table = AddressTable
+
+
+    @classmethod
+    def __handle_choice(cls):
+        print(f"1: Добавить запись")
+        print(f"2: Удалить запись")
+        print(f"3: Найти запись")
+        print(f"4: Добавить запись")
+        print(f"5: Добавить запись")
+        print(f"6: Выход")
+
+        
+
+        choice = int(input(">> "))
+        if choice == 1:
+            field_names = cls.__current_table.get_fields_name()
+            values = dict()
+
+            for field_name in field_names:
+                values[field_name] = input(f"{field_name}: ")
+            
+            cls.__current_table.add(values)
+            print("Запись успешно добавлена!")
+
+        elif choice == 2:
+            ...
+
+        elif choice == 3:
+            values = dict()
+            values["name"] = input(f"{field_name}: ")
+        
+            print (cls.__current_table.find(values))
+
+        elif choice == 4:
+            ...
+
+        elif choice == 5:
+            ...
+
+        elif choice == 6:
+            cls.__is_finished = True
+            
+        else:
+            ...
+
+
+    @classmethod
+    def main(cls):
+        print("before")
+        DateBase.connect(
+            host="109.206.169.221",
+            user="seschool_01",
+            password="seschool_01",
+            database="seschool_01"
+        ) 
+        while(not cls.__is_finished):
+            cls.__handle_table_choice()
+            cls.__handle_choice()
+            DateBase.commit()
+
+
+Program.main()
